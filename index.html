@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrutura de Repetição</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0ff7c;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #daa025;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #6b6b6b;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #daa025;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: white;
+            color: #daa025;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jogo de Adivinhação</h1>
+    <div class="container">
+        <p>Você tem 3 tentativas para adivinhar o número secreto entre 0 e 10.</p>
+        <input type="number" id="chute" placeholder="Digite seu chute" min="0" max="10">
+        <button onclick="jogar()">Chutar</button>
+        <div class="message" id="mensagem"></div>
+    </div>
+
+    <script>
+        // Gera um número randômico entre 0 e 10
+        const numeroSecreto = Math.floor(Math.random() * 11);
+        let tentativas = 3;
+
+        function jogar() {
+            const input = document.getElementById('chute');
+            const mensagem = document.getElementById('mensagem');
+            const chute = Number(input.value);
+
+            // Verifica se o valor digitado é válido
+            if (chute < 0 || chute > 10 || isNaN(chute)) {
+                mensagem.textContent = "Por favor, digite um número válido entre 0 e 10.";
+                return;
+            }
+
+            if (chute === numeroSecreto) {
+                mensagem.innerHTML = `<span style="color: green;">Parabéns! Você acertou o número secreto: ${numeroSecreto}!</span>`;
+                return;
+            } else {
+                tentativas--;
+                if (tentativas > 0) {
+                    mensagem.textContent = `Você errou! Tentativas restantes: ${tentativas}.`;
+                } else {
+                    mensagem.innerHTML = `<span style="color: red;">Você perdeu! O número secreto era ${numeroSecreto}.</span>`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
